@@ -1,0 +1,73 @@
+class Product:
+    inventory = []   
+    product_counter = 0 
+
+    def __init__(self, product_id, name, category, quantity, price, supplier):
+        self.product_id = product_id
+        self.name = name
+        self.category = category
+        self.quantity = quantity
+        self.price = price
+        self.supplier = supplier
+
+    @classmethod  
+    def add_product(cls, name, category, quantity, price, supplier):
+        cls.product_counter += 1
+        product_id = cls.product_counter
+        new_product = Product(product_id, name, category, quantity, price, supplier)
+        cls.inventory.append(new_product) 
+        return "Product added successfully"
+
+    @classmethod
+    def update_product(cls, product_id, quantity=None, price=None, supplier=None):
+        for product in cls.inventory:
+            if product.product_id == product_id:
+                if quantity is not None:
+                    product.quantity = quantity
+                if price is not None:
+                    product.price = price
+                if supplier is not None:
+                    product.supplier = supplier
+                return "Product information updated successfully"
+        return "Product not found"
+    
+    @classmethod
+    def delete_product(cls, product_id):
+        for product in cls.inventory:
+            if product.product_id == product_id:
+                cls.inventory.remove(product)
+                return "Product deleted successfully"
+        return "Product not found"
+    
+    @classmethod
+    def display_inventory(cls):
+        if not cls.inventory:
+            return "Inventory is empty."
+        result = "\nINVENTORY:\n"
+        for p in cls.inventory:
+            result += f"ID: {p.product_id}, Name: {p.name}, Category: {p.category}, "
+            result += f"Qty: {p.quantity}, Price: {p.price}, Supplier: {p.supplier}\n"
+        return result
+
+
+class Order:
+    def __init__(self, order_id, product_id, quantity, customer_info=None):
+        self.order_id = order_id
+        self.product_id = product_id
+        self.quantity = quantity
+        self.customer_info = customer_info
+
+    def place_order(self):
+        return f"Order placed successfully. Order ID: {self.order_id}"
+
+
+
+print(Product.add_product("chocolate", "sweets", 5, 100, "Supplier A"))
+print(Product.add_product("apple", "fruits", 10, 250, "Supplier B"))
+print(Product.add_product("takoyaki", "other", 8, 180, "Supplier c"))
+print(Product.update_product(2, quantity=5, price=550))
+print(Product.delete_product(2))
+print(Product.display_inventory())
+
+order1 = Order(order_id=3, product_id=3, quantity=2, customer_info="Sirkkk")
+print(order1.place_order())
