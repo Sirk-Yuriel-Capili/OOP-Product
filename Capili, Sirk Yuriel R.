@@ -9,7 +9,7 @@ class Product:
         self.quantity = quantity
         self.price = price
         self.supplier = supplier
-
+#class para sa pag add ng products
     @classmethod  
     def add_product(cls, name, category, quantity, price, supplier):
         cls.product_counter += 1
@@ -18,6 +18,7 @@ class Product:
         cls.inventory.append(new_product) 
         return "Product added successfully"
 
+#class para sa pag updates
     @classmethod
     def update_product(cls, product_id, quantity=None, price=None, supplier=None):
         for product in cls.inventory:
@@ -30,7 +31,8 @@ class Product:
                     product.supplier = supplier
                 return "Product information updated successfully"
         return "Product not found"
-    
+
+    #class para sa pag delete
     @classmethod
     def delete_product(cls, product_id):
         for product in cls.inventory:
@@ -38,8 +40,9 @@ class Product:
                 cls.inventory.remove(product)
                 return "Product deleted successfully"
         return "Product not found"
-    
-    @classmethod
+
+#para madisplay
+@classmethod
     def display_inventory(cls):
         if not cls.inventory:
             return "Inventory is empty."
@@ -49,7 +52,7 @@ class Product:
             result += f"Qty: {p.quantity}, Price: {p.price}, Supplier: {p.supplier}\n"
         return result
 
-
+#for order
 class Order:
     def __init__(self, order_id, product_id, quantity, customer_info=None):
         self.order_id = order_id
@@ -61,7 +64,7 @@ class Order:
         return f"Order placed successfully. Order ID: {self.order_id}"
 
 
-
+#sample callings
 print(Product.add_product("chocolate", "sweets", 5, 100, "Supplier A"))
 print(Product.add_product("apple", "fruits", 10, 250, "Supplier B"))
 print(Product.add_product("takoyaki", "other", 8, 180, "Supplier c"))
